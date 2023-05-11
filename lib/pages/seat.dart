@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 
@@ -80,16 +80,43 @@ class _SeatState extends State<Seat> {
                       child: const Icon(Icons.arrow_right_alt_rounded)),
                 ))
               ]),
-          Flexible(
-            child: Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: const Color(0xff004E98)),
-            ),
+          const Flexible(
+            child: Row(children: [
+              SeatPos(number: 1, name: 'Window'),
+              SeatPos(number: 2, name: 'Middle',),
+              SeatPos(number: 3, name: 'Aisle')
+            ]),
           )
         ],
+      ),
+    );
+  }
+}
+
+class SeatPos extends StatelessWidget {
+  final number;
+  final name;
+  const SeatPos({
+    super.key,
+    this.number,
+    this.name,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: 70,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: const Color(0xff004E98)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 12, 0, 5),
+        child: Text(
+          '$number\n$name',
+          style: const TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
