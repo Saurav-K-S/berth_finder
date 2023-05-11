@@ -31,7 +31,7 @@ class _SeatState extends State<Seat> {
         children: [
           const Center(
             child: Padding(
-                padding: EdgeInsets.only(top: 70),
+                padding: EdgeInsets.only(top: 100),
                 child: Text(
                   'Seat Finder',
                   style: TextStyle(
@@ -72,13 +72,23 @@ class _SeatState extends State<Seat> {
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadiusDirectional.only(
                                   topEnd: Radius.circular(8),
-                                  bottomEnd: Radius.circular(8)))),
+                                  bottomEnd: Radius.circular(8))),
+                          elevation: 0),
                       onPressed: () {
                         print(myController.text);
                       },
                       child: const Icon(Icons.arrow_right_alt_rounded)),
                 ))
-              ])
+              ]),
+          Flexible(
+            child: Container(
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: const Color(0xff004E98)),
+            ),
+          )
         ],
       ),
     );
