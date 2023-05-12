@@ -100,9 +100,7 @@ class _SeatState extends State<Seat> {
             SeatRow(sel: sel),
             SeatRow(sel: sel),
             SeatRow(sel: sel),
-            SizedBox(
-              height: 100,
-            )
+            const SizedBox(height: 100)
           ],
         ),
       ),
