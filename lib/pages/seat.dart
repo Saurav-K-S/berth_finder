@@ -87,7 +87,7 @@ class _SeatState extends State<Seat> {
                               elevation: 0),
                           onPressed: () {
                             if (int.parse(myController.text) > 0 &&
-                                int.parse(myController.text) < trainno % 100) {
+                                int.parse(myController.text) <= trainno % 100) {
                               setState(() {
                                 sel = List.filled(50, false);
                                 sel[(int.parse(myController.text) - 1)] =
