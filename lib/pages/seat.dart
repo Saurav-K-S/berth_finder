@@ -86,7 +86,18 @@ class _SeatState extends State<Seat> {
                                       bottomEnd: Radius.circular(8))),
                               elevation: 0),
                           onPressed: () {
-                            if (int.parse(myController.text) > trainno % 100) {
+                            if (int.parse(myController.text) > 0 &&
+                                int.parse(myController.text) < trainno % 100) {
+                              setState(() {
+                                sel = List.filled(50, false);
+                                sel[(int.parse(myController.text) - 1)] =
+                                    !sel[(int.parse(myController.text))];
+                                _scrollToIndex(
+                                    (int.parse(myController.text).ceil() / 8)
+                                            .round() -
+                                        1);
+                              });
+                            } else {
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
@@ -101,15 +112,6 @@ class _SeatState extends State<Seat> {
                                   ],
                                 ),
                               );
-                            } else {
-                              setState(() {
-                                sel = List.filled(50, false);
-                                sel[(int.parse(myController.text) - 1)] =
-                                    !sel[(int.parse(myController.text) - 1)];
-                                _scrollToIndex(
-                                    (int.parse(myController.text).ceil() / 8)
-                                        .round());
-                              });
                             }
                           },
                           child: const Icon(Icons.arrow_right_alt_rounded)),
