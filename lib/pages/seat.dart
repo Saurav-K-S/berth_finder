@@ -1,5 +1,3 @@
-
-
 import 'package:berth_finder/Variables/var.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +26,7 @@ class _SeatState extends State<Seat> {
 
   void _scrollToIndex(index) {
     _scrollController.animateTo(160.toDouble() * index,
-        duration: const Duration(seconds: 2), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 900), curve: Curves.easeInOut);
   }
 
   @override
@@ -88,13 +86,31 @@ class _SeatState extends State<Seat> {
                                       bottomEnd: Radius.circular(8))),
                               elevation: 0),
                           onPressed: () {
-                            setState(() {
-                              sel = List.filled(50, false);
-                              sel[(int.parse(myController.text) - 1)] =
-                                  !sel[(int.parse(myController.text) - 1)];
-                              _scrollToIndex(
-                                  int.parse(myController.text).ceil() / 8);
-                            });
+                            if (int.parse(myController.text) > trainno % 100) {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text('Invalid Seat Number'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              setState(() {
+                                sel = List.filled(50, false);
+                                sel[(int.parse(myController.text) - 1)] =
+                                    !sel[(int.parse(myController.text) - 1)];
+                                _scrollToIndex(
+                                    (int.parse(myController.text).ceil() / 8)
+                                        .round());
+                              });
+                            }
                           },
                           child: const Icon(Icons.arrow_right_alt_rounded)),
                     ))
@@ -105,7 +121,7 @@ class _SeatState extends State<Seat> {
                   controller: _scrollController,
                   cacheExtent: 10000,
                   children: List.generate(
-                      ((trainno % 100) / 8).round(), (index) => const SeatRow())),
+                      ((trainno % 100) / 8).round(), (index) => SeatRow())),
             ),
             const SizedBox(height: 25)
           ],

@@ -36,51 +36,55 @@ class _MyAppState extends State<MyApp> {
                           fontSize: 64,
                           fontWeight: FontWeight.w600),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: TextField(
-                            controller: _textcontroller,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        bottomLeft: Radius.circular(8))),
-                                hintText: 'Enter Train Number',
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xff004E98)),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        bottomLeft: Radius.circular(8)))),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: TextField(
+                              controller: _textcontroller,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          bottomLeft: Radius.circular(8))),
+                                  hintText: 'Enter Train Number',
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xff004E98)),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          bottomLeft: Radius.circular(8)))),
+                            ),
                           ),
-                        ),
-                        Flexible(
-                            child: SizedBox(
-                          height: 60,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff004E98),
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadiusDirectional.only(
-                                              topEnd: Radius.circular(8),
-                                              bottomEnd: Radius.circular(8))),
-                                  elevation: 0),
-                              onPressed: () {
-                                setState(() {
-                                  trainno = int.parse(_textcontroller.text);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Seat()),
-                                  );
-                                });
-                              },
-                              child: const Icon(Icons.arrow_right_alt_rounded)),
-                        ))
-                      ],
+                          Flexible(
+                              child: SizedBox(
+                            height: 60,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff004E98),
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadiusDirectional.only(
+                                                topEnd: Radius.circular(8),
+                                                bottomEnd: Radius.circular(8))),
+                                    elevation: 0),
+                                onPressed: () {
+                                  setState(() {
+                                    trainno = int.parse(_textcontroller.text);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Seat()),
+                                    );
+                                  });
+                                },
+                                child:
+                                    const Icon(Icons.arrow_right_alt_rounded)),
+                          ))
+                        ],
+                      ),
                     )
                   ],
                 );
