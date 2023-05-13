@@ -138,34 +138,50 @@ class SeatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Column(
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SeatPos(number: seatno + 1, name: 'Window', select: sel[seatno]),
-            SeatPos(
-                number: seatno + 2, name: 'Middle', select: sel[seatno + 1]),
-            SeatPos(number: seatno + 3, name: 'Aisle', select: sel[seatno + 2]),
-            const SizedBox(width: 40),
-            SeatPos(
-                number: seatno + 7,
-                name: 'Side\nUpper',
-                select: sel[seatno + 6])
-          ]),
-          const SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SeatPos(
-                number: seatno + 4, name: 'Window', select: sel[seatno + 3]),
-            SeatPos(
-                number: seatno + 5, name: 'Middle', select: sel[seatno + 4]),
-            SeatPos(number: seatno + 6, name: 'Aisle', select: sel[seatno + 5]),
-            const SizedBox(width: 40),
-            SeatPos(
-                number: seatno + 8,
-                name: 'Side\nLower',
-                select: sel[seatno + 7])
-          ]),
-        ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 4, 0, 1),
+      child: Flexible(
+        child: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SeatPos(number: seatno + 1, name: 'Window', select: sel[seatno]),
+              SeatPos(
+                  number: seatno + 2, name: 'Middle', select: sel[seatno + 1]),
+              SeatPos(
+                  number: seatno + 3, name: 'Aisle', select: sel[seatno + 2]),
+              const SizedBox(width: 40),
+              SeatPos(
+                  number: seatno + 7,
+                  name: 'Side\nUpper',
+                  select: sel[seatno + 6])
+            ]),
+            const SizedBox(height: 50),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SeatPos(
+                  number: seatno + 4, name: 'Window', select: sel[seatno + 3]),
+              SeatPos(
+                  number: seatno + 5, name: 'Middle', select: sel[seatno + 4]),
+              SeatPos(
+                  number: seatno + 6, name: 'Aisle', select: sel[seatno + 5]),
+              const SizedBox(width: 40),
+              SeatPos(
+                  number: seatno + 8,
+                  name: 'Side\nLower',
+                  select: sel[seatno + 7])
+            ]),
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Container(
+                height: 4,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 48, 124, 196),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

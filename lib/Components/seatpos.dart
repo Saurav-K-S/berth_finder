@@ -24,8 +24,13 @@ class _SeatPosState extends State<SeatPos> {
       Container(
         height: 70,
         width: 70,
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 48, 124, 196)),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 48, 124, 196),
+          border: Border.all(
+              color: widget.select ? Colors.white : const Color(0xff004E98),
+              width: 2),
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
       Container(
         margin: const EdgeInsets.all(1),
