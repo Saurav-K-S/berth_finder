@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 
 import 'package:berth_finder/Variables/var.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +17,18 @@ class Seat extends StatefulWidget {
 }
 
 class _SeatState extends State<Seat> {
-  List<bool> sel = List.filled(50, false);
   final myController = TextEditingController();
+  final _scrollController = ScrollController();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController.dispose();
     super.dispose();
+  }
+
+  void _scrollToIndex(index) {
+    _scrollController.animateTo(160.toDouble() * index,
+        duration: const Duration(seconds: 2), curve: Curves.easeIn);
   }
 
   @override
@@ -32,7 +37,7 @@ class _SeatState extends State<Seat> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: ListView(
+        body: Column(
           children: [
             const Center(
               child: Padding(
@@ -83,24 +88,26 @@ class _SeatState extends State<Seat> {
                                       bottomEnd: Radius.circular(8))),
                               elevation: 0),
                           onPressed: () {
-                            print(myController.text);
                             setState(() {
                               sel = List.filled(50, false);
                               sel[(int.parse(myController.text) - 1)] =
                                   !sel[(int.parse(myController.text) - 1)];
+                              _scrollToIndex(
+                                  int.parse(myController.text).ceil() / 8);
                             });
                           },
                           child: const Icon(Icons.arrow_right_alt_rounded)),
                     ))
                   ]),
             ),
-            SeatRow(sel: sel),
-            SeatRow(sel: sel),
-            SeatRow(sel: sel),
-            SeatRow(sel: sel),
-            SeatRow(sel: sel),
-            SeatRow(sel: sel),
-            const SizedBox(height: 100)
+            Flexible(
+              child: ListView(
+                  controller: _scrollController,
+                  cacheExtent: 10000,
+                  children: List.generate(
+                      ((trainno % 100) / 8).round(), (index) => const SeatRow())),
+            ),
+            const SizedBox(height: 25)
           ],
         ),
       ),
@@ -111,10 +118,7 @@ class _SeatState extends State<Seat> {
 class SeatRow extends StatelessWidget {
   const SeatRow({
     super.key,
-    required this.sel,
   });
-
-  final List<bool> sel;
 
   @override
   Widget build(BuildContext context) {
@@ -130,11 +134,9 @@ class SeatRow extends StatelessWidget {
             SeatPos(
                 number: seatno + 7,
                 name: 'Side\nUpper',
-                select: sel[seatno + 6]),
+                select: sel[seatno + 6])
           ]),
-          const SizedBox(
-            height: 50,
-          ),
+          const SizedBox(height: 50),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SeatPos(
                 number: seatno + 4, name: 'Window', select: sel[seatno + 3]),

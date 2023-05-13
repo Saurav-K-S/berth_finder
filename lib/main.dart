@@ -1,3 +1,4 @@
+import 'package:berth_finder/Variables/var.dart';
 import 'package:berth_finder/pages/seat.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _textcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,24 +27,62 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Builder(builder: (context) {
-                return ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Seat()),
-                    );
-                  },
-                  style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Color(0x00000000)),
-                      elevation: MaterialStatePropertyAll(0)),
-                  child: const Text(
-                    'Seat\nFinder',
-                    style: TextStyle(
-                        color: Color(0xff004e98),
-                        fontSize: 64,
-                        fontWeight: FontWeight.w600),
-                  ),
+                return Column(
+                  children: [
+                    const Text(
+                      'Seat\nFinder',
+                      style: TextStyle(
+                          color: Color(0xff004e98),
+                          fontSize: 64,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: TextField(
+                            controller: _textcontroller,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        bottomLeft: Radius.circular(8))),
+                                hintText: 'Enter Train Number',
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff004E98)),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        bottomLeft: Radius.circular(8)))),
+                          ),
+                        ),
+                        Flexible(
+                            child: SizedBox(
+                          height: 60,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff004E98),
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadiusDirectional.only(
+                                              topEnd: Radius.circular(8),
+                                              bottomEnd: Radius.circular(8))),
+                                  elevation: 0),
+                              onPressed: () {
+                                setState(() {
+                                  trainno = int.parse(_textcontroller.text);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Seat()),
+                                  );
+                                });
+                              },
+                              child: const Icon(Icons.arrow_right_alt_rounded)),
+                        ))
+                      ],
+                    )
+                  ],
                 );
               })
             ],
